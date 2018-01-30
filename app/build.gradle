@@ -1,0 +1,45 @@
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        config {
+            keyAlias 'KeyLucas'
+            keyPassword 'lucas123'
+            storeFile file('C:/Users/Usuario/Downloads/Lucas/Lucas_KeyStore.jks')
+            storePassword 'lucas123'
+        }
+    }
+    compileSdkVersion 24
+    buildToolsVersion '26.0.2'
+    defaultConfig {
+        applicationId "br.com.modulo2.androidaccelerate.projeto_4"
+        minSdkVersion 15
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            signingConfig signingConfigs.config
+        }
+    }
+    buildTypes.each {
+        it.buildConfigField('String', 'TMDB_API_KEY', "\"8bfa487acfdc5d5aef0c377f6bac85eb\"")
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha8'
+    compile 'com.android.support:support-v4:24.2.1'
+    testCompile 'junit:junit:4.12'
+}
